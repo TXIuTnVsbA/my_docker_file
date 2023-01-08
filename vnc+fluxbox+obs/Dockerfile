@@ -6,11 +6,15 @@ RUN sed -i 's@//ports.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
 
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update -y \
-    && apt-get install -y tigervnc-standalone-server tigervnc-common fluxbox eterm xterm git net-tools python-is-python3 python3-numpy ca-certificates scrot nano \
+    && apt-get install -y tigervnc-standalone-server tigervnc-common fluxbox eterm xterm git net-tools python-is-python3 python3-numpy ca-certificates scrot nano wget curl \
     && apt-get install -y software-properties-common \
     && add-apt-repository ppa:obsproject/obs-studio \
+    && apt-get update -y
+
+RUN sed -i 's@//ppa.launchpadcontent.net@//launchpad.proxy.ustclug.org@g' /etc/apt/sources.list.d/*
+RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update -y \
-    && apt-get install -y obs-studio wget curl \
+    && apt-get install -y obs-studio \
     && apt-get install -y ttf-wqy-microhei ttf-wqy-zenhei xfonts-wqy \
     && apt-get install -y language-pack-zh* \
     && apt clean -y \
